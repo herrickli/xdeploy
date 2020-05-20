@@ -1,4 +1,6 @@
-from mmdet.apis import init_detector, inference_detector
+import argparse
+
+
 import mmcv
 from flask import Flask, request, Blueprint, render_template, flash
 from werkzeug.utils import secure_filename
@@ -6,10 +8,22 @@ import base64
 import os
 import cv2
 
-config_file = './configs/config.py'
-weight_file = './weights/weight.pth'
 
-model = init_detector(config_file, weight_file, device='cuda:0')
+parser = argparse.ArgumentParser()
+parser.add_argument('--model', required=False)
+
+args = parser.parse_args()
+if args.model:
+    from args.model import init_detector
+    from args.model import predict
+    init_detector()
+else:
+    # default model from cheng
+    from mmdet.apis import init_detector
+    from mmdet.apis import inference_detector as predict
+    config_file = './configs/config.py'
+    weight_file = './weights/weight.pth'
+    model = init_detector(config_file, weight_file, device='cuda:0')
 
 class_names = ['hammar', 'scissors', 'knife', 'bottle', 'battery', 'firecracker', 'gun', 'grenade', 'bullet', 'lighter', 'ppball', 'baton']
 
@@ -63,8 +77,9 @@ def index():
             flash('只支持 jpg png jpeg JPEG 格式文件！')
             print(name)
             return render_template('index.html', name = 'static/smail.jpg')
-        ori_img.save('static/imgs_ori/' + name)
-        results = inference_detector(model, 'static/imgs_ori/' + name)
+        ori_img_path = 'static/imgs_ori' + name
+        ori_img.save(ori_img_path)
+        results = predict(model, ori_img_path)
         results = parse_result(results)
         img = cv2.imread('static/imgs_ori/'+name)
         #img = cv2.cvtColor(img, cv2.COLOR_BGR2RGBA)
