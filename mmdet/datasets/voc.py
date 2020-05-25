@@ -26,6 +26,8 @@ class VOCDataset(XMLDataset):
     CLASSES = ('hammer','scissors','knife','bottle','battery','firecracker',
                 'gun','grenade','bullet','lighter','ppball','baton')
 
+    CLASSES = ('hammer','scissors','knife','bottle','battery','firecracker',
+                'gun','grenade')
     def __init__(self, **kwargs):
         super(VOCDataset, self).__init__(**kwargs)
         if 'VOC2007' in self.img_prefix:

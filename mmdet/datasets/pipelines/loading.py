@@ -19,8 +19,13 @@ class LoadImageFromFile(object):
                                 results['img_info']['filename'])
         else:
             filename = results['img_info']['filename']
-        if filename.split('/')[-1].startswith('IMG'):
-            filename = filename.split('.')[0] + '.JPEG'
+        #if filename.split('/')[-1].startswith('IMG'):
+	#    filename = filename.split('.')[0] + '.JPEG'
+        #print(filename)
+        #filename = filename.split('.')[0] + '.JPEG'
+        filename='.'.join(filename.split('.')[:-1])
+        filename = filename + '.JPEG'
+        #print(filename)
         img = mmcv.imread(filename)
 
         if self.to_float32:

@@ -1,6 +1,4 @@
 import argparse
-
-
 import mmcv
 from flask import Flask, request, Blueprint, render_template, flash
 from werkzeug.utils import secure_filename
