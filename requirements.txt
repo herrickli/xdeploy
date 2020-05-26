@@ -1,3 +1,5 @@
+Cython
+flask
 albumentations>=0.3.2
 imagecorruptions
 matplotlib
