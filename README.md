@@ -29,7 +29,7 @@ pip install -v -e .
 
 5. 运行
 `
-python interface.py
+python deploy.py
 `
 
 
