@@ -40,6 +40,12 @@ python autoread.py
 - 检测模型将未检测的图片和检测后的图片分别存在两个文件夹中，请打开`autoread.py`修改这两个文件夹
 
 ### 使用分类模型自动读取图片
+- 下载分类模型放到根目录中
+```
+链接：https://pan.baidu.com/s/1Q-B_uX8I8qtWr7PDiIIrFg 
+提取码：4r73
+```
+- 运行
 ```
 phthon autoread.py --model cls
 ```
